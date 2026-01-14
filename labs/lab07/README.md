@@ -632,6 +632,6 @@ $ docker-compose -f docker-compose.yml down
 $ docker system prune -f
 ```
 
-***
+---
 
 Copyright (c) 2026 Stratienko Ilya IU10-96
