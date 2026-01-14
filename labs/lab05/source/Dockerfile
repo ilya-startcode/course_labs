@@ -21,4 +21,4 @@ COPY hello.py .
 # Переменные окружения для улучшенной работы Python
 ENV PYTHONUNBUFFERED=1
 # Запускаем приложение
-CMD ["python", "hello.py"] 
+ENTRYPOINT ["python", "hello.py"]
