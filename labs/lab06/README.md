@@ -16,7 +16,7 @@
 
 ## Задание
 
-- [x] 1. Необходимо установить `Docker Engine` для Linux
+- [x] 1. Необходимо  установить `Docker Engine` для Linux
 
 ```bash
 ┌──(.venv)─(kali㉿kali)-[~/work/course_labs/labs/lab06]
