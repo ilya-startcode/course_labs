@@ -1,17 +1,15 @@
-import sys
-import time
+import base64
+import typer
 
 
-def colorful_print(text):
-    colors = ["\033[91m", "\033[92m", "\033[93m", "\033[94m", "\033[95m"]
-    reset = "\033[0m"
-    for i, char in enumerate(text):
-        color = colors[i % len(colors)]
-        sys.stdout.write(color + char + reset)
-        sys.stdout.flush()
-        time.sleep(0.2)
-    print()
+def main(
+    name: str = typer.Argument(...),
+    lastname: str = typer.Option("", "--lastname", "-l"),
+) -> None:
+    greeting = base64.b64decode(b"SGVsbG8gYXBwc2Vjd29ybGQ=").decode()
+    tail = f"@{name}" + (f" {lastname}" if lastname else "")
+    typer.echo(f"{greeting} from {tail}")
 
 
 if __name__ == "__main__":
-    colorful_print("hello appsec world")
+    typer.run(main)
