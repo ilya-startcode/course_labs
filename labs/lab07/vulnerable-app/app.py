@@ -71,7 +71,7 @@ def ping():
             ["/bin/ping", "-c", "1", "-W", "2", host],
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=5,
         )
         return f"Ping result: {result.returncode}"
     except subprocess.TimeoutExpired:
