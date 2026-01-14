@@ -92,7 +92,7 @@ WARN[0005] Found orphan containers ([vulnerable-app insecure-db]) for this proje
 └─$ DOCKER_BENCH_IMAGE=jauderho/docker-bench-security:latest ./audit.sh
 
 Starting Docker CIS & Image Security Audit
-==========================================
+
 Detected platform: Linux
 Using docker-bench-security image: jauderho/docker-bench-security:latest
 Reports will be saved to: ./audit_reports/
@@ -409,7 +409,7 @@ Section C - Score
 CIS audit output saved to: ./audit_reports/text/docker-bench-security-cis.txt
 
 Converting Trivy JSON reports to XLSX/ODT formats...
-==========================================
+
 Audit complete!
 Reports directory structure:
    ./audit_reports/
@@ -436,12 +436,12 @@ Score: -13 (много предупреждений WARN)
 
 - [x] 5. Проведите анализ уязвимостей, опишите их причину возникновения
 
-####Host Configuration (1.x)
+#### Host Configuration (1.x)
 
 Много WARN про отсутствие отдельного раздела под контейнеры и про аудит (auditd) для каталогов Docker (/var/lib/docker, /etc/docker, и т.д.).
 Это означает, что на хосте нет настроенного аудита изменений критичных файлов Docker → снижается обнаруживаемость атак/изменений.
 
-####Docker daemon configuration (2.x)
+#### Docker daemon configuration (2.x)
 
 WARN 2.9 Enable user namespace support → userns-remap не включён.
 
@@ -451,13 +451,13 @@ WARN 2.13 centralized and remote logging → нет централизованн
 
 WARN 2.16 Userland Proxy is Disabled → userland-proxy не отключён (в ряде конфигураций это рекомендация CIS).
 
-####Container Images (4.x)
+#### Container Images (4.x)
 
 WARN 4.6 HEALTHCHECK ... No Healthcheck found у многих образов → отсутствует healthcheck.
 
 WARN 4.5 Content trust ... → Docker Content Trust не включён.
 
-####Container Runtime (5.x) — самое критичное
+#### Container Runtime (5.x) — самое критичное
 По твоему выводу контейнер vulnerable-web (и ещё registry...) имеет набор опасных настроек:
 
 WARN 5.4 Capabilities added: CapAdd=[ALL]
@@ -476,13 +476,13 @@ WARN 5.32 Docker socket shared
 
 Это признаки очень высокого риска компрометации хоста при взломе контейнера.
 
-####Swarm (7.x)
+#### Swarm (7.x)
 
 включён swarm и есть WARN про unencrypted overlay network: ingress, binding интерфейса и auto-lock. Если swarm не используется в лабе — лучше отключать.
 
 конвертер отработал корректно, но входных данных не было, т.к. Trivy отсутствует.
----
-####Ниже — самые важные “уязвимости/мисконфигурации” и их причины:
+***
+#### Ниже — самые важные “уязвимости/мисконфигурации” и их причины:
 
 A) Privileged container (WARN 5.5)
 
@@ -529,7 +529,7 @@ I) User namespaces не включены (WARN 2.9)
 Причина: не настроен userns-remap.
 Плохо: снижает изоляцию между root в контейнере и хостом (хотя это не “прямой root”, но риск выше).
 
----
+***
 - [x] 6. Опишите влияния уязвимостей, их сценарий атаки
 
 #### Сценарий CR (компрометация хоста через контейнер)
@@ -566,7 +566,7 @@ privileged+capabilities (WARN 5.5/5.4)
 
 случайно или намеренно “съесть” ресурсы → падение сервисов и хоста.
 
----
+***
 
 #### 1) docker-compose.yml — риски
 insecure-db (PostgreSQL)
