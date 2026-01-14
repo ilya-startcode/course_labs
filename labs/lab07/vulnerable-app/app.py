@@ -76,7 +76,7 @@ def ping():
         return f"Ping result: {result.returncode}"
     except subprocess.TimeoutExpired:
         return "Ping timeout", 408
-    except Exception as e:
+    except Exception:
         app.logger.error("Ping error")
         return "Ping failed", 500
 
@@ -110,7 +110,7 @@ def read_file():
         with open(full_path, "r") as f:
             data = f.read()
         return f"<pre>{escape(data)}</pre>"
-    except Exception as e:
+    except Exception:
         app.logger.error("File read error")
         return "Error reading file", 500
 
@@ -122,9 +122,9 @@ def load():
         # Fix: Use JSON instead of pickle for deserialization
         obj = json.loads(data)
         return jsonify({"loaded_object": obj})
-    except json.JSONDecodeError as e:
+    except json.JSONDecodeError:
         return "Invalid JSON data", 400
-    except Exception as e:
+    except Exception:
         app.logger.error("Load error")
         return "Error loading data", 500
 
@@ -138,7 +138,7 @@ def calc():
         return str(result)
     except (ValueError, SyntaxError):
         return "Invalid expression. Only numeric literals allowed", 400
-    except Exception as e:
+    except Exception:
         app.logger.error("Calc error")
         return "Calculation error", 500
 
