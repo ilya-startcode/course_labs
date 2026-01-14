@@ -10,7 +10,8 @@ RUN pip install --upgrade pip && pip wheel --wheel-dir=/wheels -r requirements.t
 FROM python:3.11-slim
 WORKDIR /hello
 # Копируем файл с зависимостями
-COPY --from=builder /wheels /wheels # Копируем собранные wheel-пакеты
+COPY --from=builder /wheels /wheels
+# Копируем собранные wheel-пакеты
 COPY requirements.txt . 
 # Устанавливаем зависимости из wheel-пакетов
 RUN pip install --no-index --find-links=/wheels -r requirements.txt
