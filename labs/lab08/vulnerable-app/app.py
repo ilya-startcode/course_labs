@@ -25,10 +25,12 @@ DB_PATH = os.environ.get("APP_DB_PATH", "app.db")
 def set_security_headers(response):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers[
-        "Content-Security-Policy"
-    ] = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    )
+    response.headers["Strict-Transport-Security"] = (
+        "max-age=31536000; includeSubDomains"
+    )
     response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
     return response
 
@@ -120,7 +122,9 @@ def search():
     error = None
     try:
         #  [ИЗМЕНЕНО] SQL Injection Protection (parameterized query)
-        cur.execute("SELECT id, username, role FROM users WHERE username = ?", (username,))
+        cur.execute(
+            "SELECT id, username, role FROM users WHERE username = ?", (username,)
+        )
         rows = cur.fetchall()
     except Exception as e:
         error = str(e)
